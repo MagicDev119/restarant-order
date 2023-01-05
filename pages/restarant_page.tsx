@@ -59,7 +59,7 @@ export default function Restarant() {
         <RoomHeader />
         <Box className={styles.content} sx={{ marginBottom: "-10px" }}>
           <RoomInfo />
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", paddingTop: "30px" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Image
                 src="/menu-icon.svg"
@@ -76,7 +76,10 @@ export default function Restarant() {
                 Menu
               </Box>
             </Box>
-            <Box className={styles.orderMenuScroll}>
+            <Box
+              className={styles.orderMenuScroll}
+              sx={{ marginLeft: "0px !important", paddingTop: "20px" }}
+            >
               <Stack className={styles.orderMenu} direction="row" spacing={1}>
                 <Chip label="Burgers" />
                 <Chip label="Pasta" />
@@ -86,7 +89,7 @@ export default function Restarant() {
               </Stack>
             </Box>
           </Box>
-          <Box sx={{ width: "100%", marginTop: "10px" }}>
+          <Box sx={{ width: "100%", marginTop: "5px !important" }}>
             {productsByCategory.map((each, index) => {
               return (
                 <Box key={index}>

@@ -78,6 +78,10 @@
   background-color: #ff5c4d;
 }
 
+.showMoreBody .showMore:hover {
+  background-color: #ff5c4d;
+}
+
 .listContainer .listInfo {
   display: flex;
   flex-direction: column;
@@ -179,7 +183,7 @@
   width: 100%;
   border-radius: 15px;
   position: relative;
-  padding: 15px 10px 2px 10px;
+  padding: 15px 10px 75px 10px;
   position: relative;
   flex-grow: 1;
 }
@@ -216,6 +220,7 @@
   background: #000000;
   padding: 10px;
   border-radius: 15px;
+  text-transform: initial;
 }
 
 .checkoutPage .roomNumber:after {

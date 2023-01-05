@@ -49,7 +49,7 @@ export default function RoomService() {
               handleCart={handleCart}
             />
           </Box>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", paddingTop: "20px" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Image
                 src="/menu-icon.svg"

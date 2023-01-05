@@ -115,15 +115,19 @@ export default function Checkout() {
               isCheckout={true}
             />
           </Box>
-          <Box
-            className={productStyles.itemCount}
-            sx={{ padding: "0 0 15px 0 !important" }}
-          >
-            <Box component="span" sx={{ fontWeight: "500" }}>
-              Total:&nbsp;
+          {carts.totalPrice ? (
+            <Box
+              className={productStyles.itemCount}
+              sx={{ padding: "0 0 15px 0 !important" }}
+            >
+              <Box component="span" sx={{ fontWeight: "500" }}>
+                Total:&nbsp;
+              </Box>
+              ${carts.totalPrice}
             </Box>
-            ${carts.totalPrice}
-          </Box>
+          ) : (
+            ""
+          )}
           <Box
             className={productStyles.itemCount}
             sx={{
@@ -132,15 +136,24 @@ export default function Checkout() {
               alignItems: "center",
             }}
           >
-            <Box>
-              <Box>Need anything else?</Box>
-              <Box
-                className={productStyles.addMoreText}
-                sx={{ lineHeight: "15px !important", color: "#000 !important" }}
-              >
-                Add other fishes, if you want
+            {carts.totalPrice ? (
+              <Box>
+                <Box>Need anything else?</Box>
+                <Box
+                  className={productStyles.addMoreText}
+                  sx={{
+                    lineHeight: "15px !important",
+                    color: "#000 !important",
+                  }}
+                >
+                  Add other fishes, if you want
+                </Box>
               </Box>
-            </Box>
+            ) : (
+              <Box>
+                <Box>Add something in you order</Box>
+              </Box>
+            )}
             <Box>
               <Button
                 className={
@@ -149,13 +162,17 @@ export default function Checkout() {
                 variant="text"
                 fullWidth
               >
-                Add more
+                {carts.totalPrice ? "Add more" : "Add"}
               </Button>
             </Box>
           </Box>
           <Box
             className={productStyles.itemCount}
-            sx={{ paddingTop: "25px !important" }}
+            sx={{
+              paddingTop: carts.totalPrice
+                ? "25px !important"
+                : "15px !important",
+            }}
           >
             Your Room
           </Box>
