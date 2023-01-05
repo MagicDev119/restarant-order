@@ -1,0 +1,333 @@
+.cardContainer .cardInfo {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  word-break: break-word;
+  min-height: 70px;
+  padding-bottom: 10px;
+}
+
+.cardContainer .cardInfo .cardTitle {
+  padding: 10px 0 5px 0;
+  color: #21201F;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.cardContainer {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding: 5px;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F4F2;
+  margin-right: 10px;
+}
+
+.cardContainer .cardImg {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  height: auto;
+  object-fit: cover;
+}
+
+.cardPrice {
+  font-weight: 400;
+  font-size: 10px;
+  color: #21201F;
+  line-height: 15px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.cardContainer .cardButton {
+  background-color: white;
+  border-radius: 15px;
+  color: black;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  text-transform: none;
+  padding: 15px 10px;
+}
+
+.showMoreButton .showMore {
+  background-color: #FF5C4D;
+  border-radius: 15px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  text-transform: none;
+  padding: 15px 10px;
+}
+
+.showMoreButton .showMore:hover {
+  background-color: #ff5c4d;
+}
+
+.listContainer .listInfo {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  word-break: break-word;
+  min-height: 70px;
+  padding-left: 10px;
+}
+
+.listContainer .listInfo .listTitle {
+  padding: 0px 0 5px 0;
+  color: #21201F;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.listContainer {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  border-radius: 15px;
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.listContainer .listImg {
+  display: block;
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.listContainer .listButton {
+  background-color: #F5F4F2;
+  border-radius: 55px;
+  color: black;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  text-transform: none;
+  padding: 15px 20px;
+}
+
+.textStyle {
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: #000000;
+}
+
+.categoryName {
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 15px;
+  padding: 15px 0 5px 0;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+
+  color: #000000;
+}
+
+.checkoutPage .itemCount {
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  padding: 10px 0;
+  color: #000000;
+}
+
+.checkoutPage .container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  background: #FFF;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 5%);
+}
+
+.checkoutPage .content {
+  top: 0;
+  background: #FFFFFF;
+  width: 100%;
+  border-radius: 15px;
+  position: relative;
+  padding: 15px 10px 2px 10px;
+  position: relative;
+  flex-grow: 1;
+}
+
+.checkoutPage .listImg {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.checkoutPage .listInfo {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  word-break: break-word;
+  min-height: 50px;
+  padding-left: 10px;
+}
+
+.checkoutPage .addMoreText {
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #FFFFFF;
+}
+
+.checkoutPage .addMore {
+  background: #000000;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.checkoutPage .roomNumber:after {
+  border-bottom: 0 !important;
+}
+
+.checkoutPage .roomNumber:before {
+  border-bottom: 0 !important;
+}
+
+.checkoutPage .roomNumber input {
+  padding: 15.5px 10px;
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 15px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: #000000;
+}
+
+.checkoutPage .roomNumber input::placeholder {
+  color: #000;
+  opacity: 1;
+}
+
+.checkoutPage .roomNumber {
+  border-radius: 10px !important;
+  background-color: #F5F4F2;
+}
+
+.checkoutPage .textField {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.checkoutPage .paymentMethod {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  background: #F7F6F6;
+  border-radius: 15px;
+
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  min-width: 0;
+  text-transform: initial;
+  color: #000000;
+  width: auto;
+  margin-right: 10px;
+}
+
+.checkoutPage .paymentMethod.active {
+  background: #000;
+  color: #FFF;
+}
+
+.checkoutPage .showMore.blackButton {
+  background: #000;
+}
+
+.checkoutPage .showMore.blackButton img {
+  height: 20px;
+}
+
+.checkoutPage .showMore {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 22.5px;
+  gap: 10px;
+  color: white;
+  background: #FF5C4D;
+  border-radius: 15px;
+  text-transform: initial;
+
+  font-family: 'Defined Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 15px;
+
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.checkoutPage .cardElement {
+  padding: 17px 10px;
+  background: #F5F4F2;
+  border-radius: 10px;
+}
+
+.poweredbyimg {
+  width: 45px;
+  margin-right: 5px;
+}
+
+.stripeimg {
+  width: 34px;
+}
+
+.cardStyle {
+  width: 24px;
+  margin-left: 5.25px;
+}
+
+.checkoutPage .showMoreBody {
+  position: absolute;
+  bottom: 15px;
+  width: calc(100vw - 40px);
+}
