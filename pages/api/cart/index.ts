@@ -15,6 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
     const orderId = records[0].getId();
+    const orderIdNum = records[0].fields.order_id;
     const carts = JSON.parse(req.body).carts;
     const orderItems: Array<any> = [];
     Object.keys(carts).map((key) => {
@@ -41,7 +42,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       const orderItemIds: Array<string> = [];
       itemRecords.forEach(function (itemRecord: any) {
-        console.log(itemRecord.getId());
         orderItemIds.push(itemRecord.getId())
       });
 
@@ -58,7 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           res.end();
           return;
         }
-        res.status(200).json({msg: 'success'});
+        res.status(200).json({msg: 'success', orderId: orderIdNum});
         res.end(); 
       });
     });

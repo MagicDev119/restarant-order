@@ -19,6 +19,16 @@ export const Layout = ({ children, mainStyle }: LayoutProps) => (
         content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
       />
       <link rel="icon" href="/logo.svg" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="anonymous"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
     </Head>
     <Header />
     <main className={mainStyle ? mainStyle : styles.container}>{children}</main>

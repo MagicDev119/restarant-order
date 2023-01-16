@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
@@ -59,7 +60,13 @@ export default function Restarant() {
         <RoomHeader />
         <Box className={styles.content} sx={{ marginBottom: "-10px" }}>
           <RoomInfo />
-          <Box sx={{ display: "flex", paddingTop: "30px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              paddingTop: "30px",
+              flexDirection: "column",
+            }}
+          >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Image
                 src="/menu-icon.svg"
@@ -78,14 +85,21 @@ export default function Restarant() {
             </Box>
             <Box
               className={styles.orderMenuScroll}
-              sx={{ marginLeft: "0px !important", paddingTop: "20px" }}
+              sx={{ marginLeft: "-5px !important", paddingTop: "20px" }}
             >
               <Stack className={styles.orderMenu} direction="row" spacing={1}>
-                <Chip label="Burgers" />
-                <Chip label="Pasta" />
-                <Chip label="Mocktails" />
-                <Chip label="Sushi" />
-                <Chip label="more" />
+                {productsByCategory.map((each, index) => (
+                  <Link
+                    key={index}
+                    href={"/restarant_page#" + each.category.toLowerCase()}
+                    scroll={false}
+                  >
+                    {each.category}
+                  </Link>
+                ))}
+                <Link href="/restarant_page" scroll={false}>
+                  more
+                </Link>
               </Stack>
             </Box>
           </Box>
@@ -93,7 +107,10 @@ export default function Restarant() {
             {productsByCategory.map((each, index) => {
               return (
                 <Box key={index}>
-                  <Box className={productStyles.categoryName}>
+                  <Box
+                    className={productStyles.categoryName}
+                    id={each.category.toLowerCase()}
+                  >
                     {each.category}
                   </Box>
                   <Box>

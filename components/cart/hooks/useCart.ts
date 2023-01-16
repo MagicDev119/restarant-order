@@ -53,3 +53,11 @@ export const getCarts = () => {
   const cart = JSON.parse(window.localStorage.getItem('cart') || "{}")
   return cart
 }
+
+export const clearCarts = () => {
+  if (typeof window == 'undefined') {
+    return {}
+  }
+  
+  window.localStorage.removeItem('cart');
+}

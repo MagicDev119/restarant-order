@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
@@ -37,6 +38,28 @@ export default function RoomService() {
     setCarts(getCarts());
   }, [cart]);
 
+  const productsByCategory: {
+    category: string;
+    products: Array<Product>;
+  }[] = [];
+  const categories = productList.map(
+    (each) => each.fields["Name (from nomenclature_category_id)"][0]
+  );
+
+  let uniqueCategories = categories.filter((each, index) => {
+    return categories.indexOf(each) === index;
+  });
+
+  uniqueCategories.map((each) => {
+    productsByCategory.push({
+      category: each,
+      products: productList.filter(
+        (eachProduct) =>
+          eachProduct.fields["Name (from nomenclature_category_id)"][0] == each
+      ),
+    });
+  });
+
   return (
     <Box sx={{ paddingBottom: carts.totalItems ? "70px" : "0px" }}>
       <Layout>
@@ -68,11 +91,18 @@ export default function RoomService() {
             </Box>
             <Box className={styles.orderMenuScroll}>
               <Stack className={styles.orderMenu} direction="row" spacing={1}>
-                <Chip label="Burgers" />
-                <Chip label="Pasta" />
-                <Chip label="Mocktails" />
-                <Chip label="Sushi" />
-                <Chip label="more" />
+                {productsByCategory.map((each, index) => (
+                  <Link
+                    key={index}
+                    href={"/restarant_page#" + each.category.toLowerCase()}
+                    scroll={false}
+                  >
+                    {each.category}
+                  </Link>
+                ))}
+                <Link href="/restarant_page" scroll={false}>
+                  more
+                </Link>
               </Stack>
             </Box>
           </Box>

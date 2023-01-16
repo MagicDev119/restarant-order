@@ -27,7 +27,7 @@ export const ProductListView: React.FC<PropType> = (props) => {
   };
 
   return (
-    <div className={productStyles.listContainer} key={index}>
+    <Box className={productStyles.listContainer} key={index}>
       <Box sx={{ display: "flex", flex: 1 }}>
         {product.fields.img && product.fields.img.length && (
           <img
@@ -45,13 +45,14 @@ export const ProductListView: React.FC<PropType> = (props) => {
           </div>
         </div>
       </Box>
-      <div>
+      <Box sx={{ width: "115px", display: "flex", justifyContent: "end" }}>
         {!inCart && (
           <Button
             className={productStyles.listButton}
             variant="text"
             fullWidth
             onClick={() => addToCart(product)}
+            sx={{ width: "fit-content" }}
           >
             Add
           </Button>
@@ -63,6 +64,7 @@ export const ProductListView: React.FC<PropType> = (props) => {
               display: "flex",
               alignItems: "center",
               padding: "12.6px 16px !important",
+              width: "fit-content",
             }}
           >
             <Image
@@ -84,7 +86,7 @@ export const ProductListView: React.FC<PropType> = (props) => {
             />
           </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

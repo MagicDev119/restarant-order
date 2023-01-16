@@ -22,8 +22,11 @@ export const CartNotification: React.FC<PropType> = (props) => {
       {products && (
         <Box>
           <Box className={cartStyles.cartInfo}>
-            Cart ({carts.totalItems} {carts.totalItems == 1 ? "item" : "items"})
-            • ${carts.totalPrice}
+            <Box component="span" sx={{ fontWeight: "700" }}>
+              Cart
+            </Box>{" "}
+            ({carts.totalItems} {carts.totalItems == 1 ? "item" : "items"}) • $
+            {carts.totalPrice}
           </Box>
           <Box sx={{ display: "flex" }}>
             {Object.keys(carts)
@@ -65,7 +68,7 @@ export const CartNotification: React.FC<PropType> = (props) => {
           fullWidth
           onClick={() => router.push("/checkout")}
         >
-          <Box component="span">Prossed to checkout</Box>
+          Prossed to checkout
         </Button>
       </Box>
     </Box>

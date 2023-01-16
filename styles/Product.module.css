@@ -1,7 +1,7 @@
 .cardContainer .cardInfo {
   display: flex;
   flex-direction: column;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   word-break: break-word;
   min-height: 70px;
@@ -14,7 +14,6 @@
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  font-feature-settings: 'pnum' on, 'lnum' on;
 }
 
 .cardContainer {
@@ -42,7 +41,6 @@
   font-size: 10px;
   color: #21201F;
   line-height: 15px;
-  font-feature-settings: 'pnum' on, 'lnum' on;
 }
 
 .cardContainer .cardButton {
@@ -52,9 +50,8 @@
   font-weight: 500;
   font-size: 15px;
   line-height: 15px;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
-  font-feature-settings: 'pnum' on, 'lnum' on;
   text-transform: none;
   padding: 15px 10px;
 }
@@ -67,9 +64,8 @@
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
-  font-feature-settings: 'pnum' on, 'lnum' on;
   text-transform: none;
   padding: 15px 10px;
 }
@@ -85,7 +81,7 @@
 .listContainer .listInfo {
   display: flex;
   flex-direction: column;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   word-break: break-word;
   min-height: 70px;
@@ -98,7 +94,6 @@
   font-size: 15px;
   font-weight: 500;
   line-height: 18px;
-  font-feature-settings: 'pnum' on, 'lnum' on;
 }
 
 .listContainer {
@@ -126,42 +121,38 @@
   font-weight: 500;
   font-size: 15px;
   line-height: 15px;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
-  font-feature-settings: 'pnum' on, 'lnum' on;
   text-transform: none;
   padding: 15px 20px;
 }
 
 .textStyle {
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
   line-height: 15px;
-  font-feature-settings: 'pnum' on, 'lnum' on;
   color: #000000;
 }
 
 .categoryName {
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 25px;
   line-height: 15px;
   padding: 15px 0 5px 0;
-  font-feature-settings: 'pnum' on, 'lnum' on;
 
   color: #000000;
 }
 
 .checkoutPage .itemCount {
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
-  font-feature-settings: 'pnum' on, 'lnum' on;
   padding: 10px 0;
   color: #000000;
 }
@@ -199,7 +190,7 @@
 .checkoutPage .listInfo {
   display: flex;
   flex-direction: column;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   word-break: break-word;
   min-height: 50px;
@@ -207,7 +198,7 @@
 }
 
 .checkoutPage .addMoreText {
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 10px;
@@ -233,12 +224,11 @@
 
 .checkoutPage .roomNumber input {
   padding: 15.5px 10px;
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 10px;
   line-height: 15px;
-  font-feature-settings: 'pnum' on, 'lnum' on;
   color: #000000;
 }
 
@@ -257,6 +247,14 @@
   border-radius: 10px;
 }
 
+.checkoutPage .error .roomNumber {
+  background-color: #FFE7E5;
+}
+
+.checkoutPage .error {
+  border: 1px solid #FF5C4D;
+}
+
 .checkoutPage .paymentMethod {
   display: flex;
   flex-direction: row;
@@ -265,7 +263,7 @@
   background: #F7F6F6;
   border-radius: 15px;
 
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 10px;
@@ -284,6 +282,7 @@
 
 .checkoutPage .showMore.blackButton {
   background: #000;
+  padding: 20px;
 }
 
 .checkoutPage .showMore.blackButton img {
@@ -302,13 +301,12 @@
   border-radius: 15px;
   text-transform: initial;
 
-  font-family: 'Defined Inter';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
   line-height: 15px;
 
-  font-feature-settings: 'pnum' on, 'lnum' on;
 }
 
 .checkoutPage .cardElement {
@@ -335,4 +333,25 @@
   position: absolute;
   bottom: 15px;
   width: calc(100vw - 40px);
+}
+
+.checkoutPage .showMore.payDisabled {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.checkoutPage .showMore.disabled {
+  background: rgba(255, 92, 77, 0.3);
+}
+
+.stripeErrorMsg {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  padding-top: 5px;
+  color: #FA755A;
+}
+
+.stripeError {
+  border: 1px solid #FA755A;
 }

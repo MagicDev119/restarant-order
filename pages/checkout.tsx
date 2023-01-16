@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
-import { CardElement, Elements } from "@stripe/react-stripe-js";
+import LoadingButton from "@mui/lab/LoadingButton";
+import {
+  CardElement,
+  Elements,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import useSwr from "swr";
 import { Layout } from "../components/layout/Layout";
@@ -11,7 +17,8 @@ import cartStyles from "../styles/Cart.module.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import type { Product } from "../interfaces";
-import { getCarts } from "../components/cart/hooks/useCart";
+import { getCarts, clearCarts } from "../components/cart/hooks/useCart";
+import products from "./api/products";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const cardStyle = {
@@ -36,25 +43,69 @@ const cardStyle = {
   },
 };
 
-export default function Checkout() {
+const stripePromise = loadStripe(
+  "pk_test_51MMp2yF1SAnooAw076TeHqxC7NA6b4ZayW2GctADpGTSFukPa9UhAEKopLLJel0OwRhoeE3eJ4JWLFXr73jDvrPA00nAwqFcw9"
+);
+
+const Checkout = () => {
   const { data, error } = useSwr<Product[]>("/api/products", fetcher);
   const [selectedPayment, setSelectedPayment] = useState("credit");
   const [cart, setCart] = useState([]);
   const [roomId, setRoomId] = useState("");
+  const [roomSet, setRoomSet] = useState(false);
   const router = useRouter();
   const productList = data && data.length ? data : [];
+  const [loading, setLoading] = useState(false);
+  const [stripeError, setStripeError] = useState("");
+  const stripe = useStripe();
+  const elements = useElements();
   const handleCart = (value: any) => {
     setCart(value);
   };
-  const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
-  const [carts, setCarts] = useState({ totalPrice: 0 });
+  const [carts, setCarts] = useState({ totalPrice: 0, totalItems: 0 });
 
   useEffect(() => {
     setCarts(getCarts());
   }, [cart]);
 
   const handleCheckout = async () => {
+    setRoomSet(true);
+    if (roomId == "") return;
+    setLoading(true);
+    if (selectedPayment !== "credit") {
+      await handleCreateOrder();
+      return;
+    }
+    const response = await fetch(`/api/checkout/payment_intent`, {
+      method: "POST",
+      body: JSON.stringify({
+        amount: carts.totalPrice,
+      }),
+    }).then((res) => res.json());
+
+    const { error, paymentIntent } = await stripe!.confirmCardPayment(
+      response.client_secret,
+      {
+        payment_method: {
+          card: elements!.getElement(CardElement)!,
+          billing_details: {
+            name: "Restarant",
+          },
+        },
+      }
+    );
+
+    if (error) {
+      setLoading(false);
+      setStripeError(error.message!);
+      console.log(error);
+    } else {
+      await handleCreateOrder();
+    }
+  };
+
+  const handleCreateOrder = async () => {
     let placeIds: Array<string> = [];
     Object.keys(carts).map((key) => {
       const product = productList.find((eachProduct) => {
@@ -62,33 +113,33 @@ export default function Checkout() {
       });
       if (product) placeIds = placeIds.concat(product.fields.places);
     });
-    // await fetch(`/api/cart`, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     fields: {
-    //       room: roomId + "",
-    //       place_id: placeIds.filter((c, index) => {
-    //         return placeIds.indexOf(c) === index;
-    //       }),
-    //       payment_status:
-    //         selectedPayment !== "cash" ? "payed" : "pending_payment",
-    //       payment_method:
-    //         selectedPayment == "pay"
-    //           ? "apple pay"
-    //           : selectedPayment == "credit"
-    //           ? "creditcard"
-    //           : "cash",
-    //       total_amount: carts.totalPrice,
-    //       order_status: "new",
-    //       order_items: [],
-    //     },
-    //     carts: carts,
-    //   }),
-    // });
-    console.log(roomId);
+    const response = await fetch(`/api/cart`, {
+      method: "POST",
+      body: JSON.stringify({
+        fields: {
+          room: roomId + "",
+          place_id: placeIds.filter((c, index) => {
+            return placeIds.indexOf(c) === index;
+          }),
+          payment_status:
+            selectedPayment !== "cash" ? "payed" : "pending_payment",
+          payment_method:
+            selectedPayment == "pay"
+              ? "apple pay"
+              : selectedPayment == "credit"
+              ? "creditcard"
+              : "cash",
+          total_amount: carts.totalPrice,
+          order_status: "new",
+          order_items: [],
+        },
+        carts: carts,
+      }),
+    }).then((res) => res.json());
+    clearCarts();
     router.push({
       pathname: "/success_order",
-      query: { room: roomId },
+      query: { orderId: response.orderId },
     });
   };
   return (
@@ -161,6 +212,7 @@ export default function Checkout() {
                 }
                 variant="text"
                 fullWidth
+                onClick={() => router.push("/room_service")}
               >
                 {carts.totalPrice ? "Add more" : "Add"}
               </Button>
@@ -179,12 +231,20 @@ export default function Checkout() {
           <Box>
             <TextField
               variant="filled"
+              required
               color="success"
               focused
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               value={roomId}
-              onChange={(event) => setRoomId(event.target.value)}
+              onChange={(event) => {
+                setRoomId(event.target.value);
+              }}
               placeholder="Add room number"
-              className={productStyles.textField}
+              className={
+                productStyles.textField +
+                " " +
+                (roomSet && roomId == "" ? productStyles.error : "")
+              }
               InputProps={{
                 className: productStyles.roomNumber,
               }}
@@ -243,13 +303,21 @@ export default function Checkout() {
           {selectedPayment == "credit" && (
             <Box>
               <Box sx={{ paddingBottom: "5px" }}>
-                <Elements stripe={stripePromise}>
-                  <CardElement
-                    className={productStyles.cardElement}
-                    id="card-element"
-                    options={cardStyle}
-                  />
-                </Elements>
+                <CardElement
+                  className={
+                    productStyles.cardElement +
+                    " " +
+                    (stripeError !== "" ? productStyles.stripeError : "")
+                  }
+                  id="card-element"
+                  onChange={() => setStripeError("")}
+                  options={cardStyle}
+                />
+                {stripeError !== "" && (
+                  <Box className={productStyles.stripeErrorMsg}>
+                    {stripeError}
+                  </Box>
+                )}
               </Box>
               <Box
                 sx={{
@@ -302,36 +370,72 @@ export default function Checkout() {
           )}
           <Box className={productStyles.showMoreBody}>
             {selectedPayment !== "pay" && (
-              <Button
-                className={productStyles.showMore}
-                variant="text"
-                fullWidth
+              <LoadingButton
                 onClick={handleCheckout}
-              >
-                Checkout
-              </Button>
-            )}
-            {selectedPayment === "pay" && (
-              <Button
                 className={
-                  productStyles.showMore + " " + productStyles.blackButton
+                  productStyles.showMore +
+                  " " +
+                  (!(carts.totalItems && (!roomSet || roomId !== ""))
+                    ? productStyles.disabled
+                    : "")
+                }
+                loading={loading}
+                disabled={
+                  carts.totalItems && (!roomSet || roomId !== "") ? false : true
                 }
                 variant="text"
                 fullWidth
-                onClick={handleCheckout}
               >
-                <img
-                  className={cartStyles.cartNotiImage}
-                  src={
-                    selectedPayment == "pay" ? "/apple-white.svg" : "/apple.svg"
+                {!loading && <span>Checkout</span>}
+              </LoadingButton>
+            )}
+            {selectedPayment === "pay" && (
+              <Box className="apple-pay">
+                <LoadingButton
+                  onClick={handleCheckout}
+                  className={
+                    productStyles.showMore +
+                    " " +
+                    productStyles.blackButton +
+                    " " +
+                    (!(carts.totalItems && (!roomSet || roomId !== ""))
+                      ? productStyles.payDisabled
+                      : "")
                   }
-                  alt="Your alt text"
-                />
-              </Button>
+                  loading={loading}
+                  disabled={
+                    carts.totalItems && (!roomSet || roomId !== "")
+                      ? false
+                      : true
+                  }
+                  variant="text"
+                  fullWidth
+                >
+                  {!loading && (
+                    <img
+                      className={cartStyles.cartNotiImage}
+                      src={
+                        selectedPayment == "pay"
+                          ? "/apple-white.svg"
+                          : "/apple.svg"
+                      }
+                      alt="Your alt text"
+                    />
+                  )}
+                </LoadingButton>
+              </Box>
             )}
           </Box>
         </Box>
       </Layout>
     </Box>
+  );
+};
+
+export default function CheckoutPage() {
+  return (
+    <Elements stripe={stripePromise}>
+      <Checkout />
+    </Elements>
   );
 }

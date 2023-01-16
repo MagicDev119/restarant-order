@@ -97,11 +97,29 @@ a {
 
 @font-face {
   font-family: "Defined Inter";
-  src: url('./Inter-VariableFont_slnt_wght.ttf');
+  src: url('./Inter-Regular.ttf'), url("Inter-Medium.ttf"), url("Inter-SemiBold.ttf");
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+}
+
+.MuiLoadingButton-loading {
+  background-color: rgba(255, 92, 77, 0.3) !important;
+  padding: 30px !important;
+}
+
+.MuiLoadingButton-loading div span {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.MuiLoadingButton-loading div {
+  color: #fff !important;
+}
+
+.apple-pay .MuiLoadingButton-loading {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
